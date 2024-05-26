@@ -15,6 +15,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route>
+        <Route path="" element={<Editor/>} />
         <Route path="/editor" element={<Editor/>} />
         <Route path="/viewer" element={<ViewerPage/>} />
         <Route path="/pdf.worker.js" element={<ViewerPage/>} />

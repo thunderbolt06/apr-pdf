@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { setPdfFound } from "../editorSlice";
 import { useNavigate } from "react-router-dom";
-
+import { sendFormValues } from '../../../Services/Service';
 
 const res: {
     Title: string;
@@ -50,12 +50,21 @@ function ValidateFields() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { pdfFound } = useSelector((state: RootState) => state.editor);
-    
-    const handleOnSubmit = () => {
+    const [responseMessage, setResponseMessage] = useState<string>('');
+    const handleOnSubmit = async () => {
         console.log(fieldValues);
+        try {
+            const response = await sendFormValues(fieldValues);
+            setResponseMessage(response);
+            // console.log(formValues);
+            console.log(responseMessage);
+          } catch (error) {
+            console.log(fieldValues);
+            console.log("failed");
+            console.error('Failed to send form values:', error);
+          }
         dispatch(setPdfFound(true));
         navigate("/viewer");
-        
     }
 
     return (

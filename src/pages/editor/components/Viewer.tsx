@@ -14,18 +14,19 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 const fileName = "/Users/rahil/projects/APR/APR-React/apr-pdf/assets/somepaper.pdf";
 function ViewerPage() {
     return (
-        <div>
+        <></>
+//         <div>
 
-            {/* <Document
-                file={fileName}>
-                <Page pageNumber={1} />
-                </Document> */}
+//             {/* <Document
+//                 file={fileName}>
+//                 <Page pageNumber={1} />
+//                 </Document> */}
 
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-<Viewer fileUrl={fileName} />; 
-</Worker>
+//             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+// <Viewer fileUrl={fileName} />; 
+// </Worker>
 
-        </div>
+//         </div>
     )
 }   
 
