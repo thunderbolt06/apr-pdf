@@ -6,9 +6,13 @@ export const editorSlice = createSlice({
         templateFound: false,
         pdfFound: false,
         template: {
-            fields: [],
-            title: ""
-        }
+            fields: [{
+                fieldName: "",
+                fieldValue: ""}],
+            title: "",
+            pathToCode: ""
+        },
+        pdfPath: ""
     },
     reducers: {
         setTemplateFound: (state, action) => {
@@ -19,10 +23,13 @@ export const editorSlice = createSlice({
         },
         setTemplate: (state, action) => {
             state.template = action.payload
+        },
+        setPdfPath: (state, action) => {
+            state.pdfPath = action.payload
         }
     },
 })
 
-export const { setTemplateFound, setPdfFound, setTemplate } = editorSlice.actions
+export const { setTemplateFound, setPdfFound, setTemplate, setPdfPath } = editorSlice.actions
 
 export default editorSlice.reducer
