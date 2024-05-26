@@ -1,6 +1,7 @@
 // import React from 'react';
 import { TextField, Box, Typography, Button } from '@mui/material';
 import { useState } from 'react';
+import { sendFormValues } from './services/Service';
 
 interface DynamicFormProps {
   map: { [key: string]: string | number };
@@ -13,7 +14,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ map }) => {
   }, {} as { [key: string]: string });
 
   const [formValues, setFormValues] = useState<{ [key: string]: string }>(initialState);
-
+  const [responseMessage, setResponseMessage] = useState<string>('');
   const handleChange = (key: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({
       ...formValues,
@@ -21,9 +22,19 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ map }) => {
     });
   };
 
-  const handleSubmit = () => {
-    console.log(formValues);
+  const handleSubmit = async () => {
+    try {
+      const response = await sendFormValues(formValues);
+      setResponseMessage(response);
+      // console.log(formValues);
+      console.log(responseMessage);
+    } catch (error) {
+      console.log(formValues);
+      console.log("failed");
+      console.error('Failed to send form values:', error);
+    }
   };
+
 
   return (
     <Box sx={{ p: 3 }}>
@@ -38,7 +49,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ map }) => {
         />
       ))}
 
-      {/* <Button variant="contained" onClick={() => console.log(formValues)} >Generate PDF</Button> */}
+      <Button variant="contained" onClick={handleSubmit} >Generate PDF</Button> 
     </Box>
   );
 };
