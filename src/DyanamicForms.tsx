@@ -1,7 +1,7 @@
 // import React from 'react';
 import { TextField, Box, Typography, Button } from '@mui/material';
 import { useState } from 'react';
-import { sendFormValues } from '../src/Services/Service';
+import { sendFormValues } from './services/Service';
 
 interface DynamicFormProps {
   map: { [key: string]: string | number };

@@ -1,9 +1,10 @@
 import { Box, Button, Input, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
 import { SetStateAction, useState } from "react";
 import GridLoader from "react-spinners/GridLoader";
-import { setTemplateFound } from "../editorSlice";
+import { setTemplate, setTemplateFound } from "../editorSlice";
 import { RootState } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
+import { sendFreeText } from "../../../services/Service";
 
 
 let TEMPLATE_NAMES = ["COVID", "Airline bill", "Rent Agreement", "Or choose a template"];
@@ -11,17 +12,30 @@ let TEMPLATE_NAMES = ["COVID", "Airline bill", "Rent Agreement", "Or choose a te
 function SearchTemplates() {
 
     
+    const [responseMessage, setResponseMessage] = useState<string>('');
     const dispatch = useDispatch()
-    const { templateFound } = useSelector((state: RootState) => state.editor);
+    const { templateFound, template } = useSelector((state: RootState) => state.editor);
 
     const [freeText, setFreeText] = useState("");
     const [templateType, setTemplateType] = useState("Or choose a template");
 
-    const onSubmitHandler = () => {
+    const onSubmitHandler = async () => {
         console.log(freeText);
         console.log(templateType);
         console.log(templateFound);
-        dispatch(setTemplateFound(true));
+        try {
+            const response = await sendFreeText(templateType, freeText);
+            // const response = "res";
+            setResponseMessage(response);
+            console.log(responseMessage);
+            dispatch(setTemplate(response));
+            dispatch(setTemplateFound(true));
+
+
+          } catch (error) {
+            console.log("failed");
+            console.error('Failed to send form values:', error);
+          }
     }
 
     const handleChange = (event: { target: { value: SetStateAction<string>; }; }) => {
