@@ -17,17 +17,18 @@ function SearchTemplates() {
     const { templateFound, template } = useSelector((state: RootState) => state.editor);
 
     const [freeText, setFreeText] = useState("");
-    const [templateType, setTemplateType] = useState("Or choose a template");
+    const [templateType, setTemplateType] = useState("freeText");
 
     const onSubmitHandler = async () => {
         console.log(freeText);
         console.log(templateType);
         console.log(templateFound);
         try {
-            const response = await sendFreeText(templateType, freeText);
-            // const response = "res";
+            const response = await sendFreeText("freeText", freeText);
+            // const response = "res";r
             setResponseMessage(response);
-            console.log(responseMessage);
+            console.log(typeof response);
+            console.log("typeof")
             dispatch(setTemplate(response));
             dispatch(setTemplateFound(true));
 

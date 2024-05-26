@@ -2,13 +2,14 @@ import axios from 'axios';
 
 
 // Define the base URL for your API
-const BASE_URL = 'http://192.168.1.3:5000';
+const BASE_URL = 'http://localhost:5000';
 
 
 // Function to send a string to the backend
 export const sendFreeText = async (templateType: string, freeText: string) => {
   try {
-    const response = await axios.post(`${BASE_URL}/aiRetriever`, { "templateType": templateType, "freeText": freeText });
+    const response = await axios.post(`${BASE_URL}/ai_retriever`, { "templateType": templateType, "freeText": freeText });
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error sending free text:', error);

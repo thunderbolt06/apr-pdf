@@ -75,41 +75,32 @@ function ValidateFields() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { templateFound, template } = useSelector((state: RootState) => state.editor);
-    console.log(template)
-    const initialState = res.fields.reduce((acc, field) => {
-        acc[field.fieldName] = field.suggestedValue || '';
-        return acc;
-    }, {} as { [key: string]: string });
-
     
-    const [templateObj, setTemplateObj] = useState<any>(template2);
+    // const [templateObj, setTemplateObj] = useState<any>();
     // setTemplateObj(JSON.parse(template));
     // setTemplateObj(template2);
+    // const initialState2 = templateObj.fields.reduce((acc: { [x: string]: any; }, field: { fieldName: string | number; fieldValue: string; }) => {
+    //     acc[field.fieldName] = field.fieldValue || '';
+    //     return acc;
+    // }, {} as { [key: string]: string });
     
-    
-    console.log(template)
-    console.log(templateObj)
-    const initialState2 = templateObj.fields.reduce((acc: { [x: string]: any; }, field: { fieldName: string | number; fieldValue: string; }) => {
-        acc[field.fieldName] = field.fieldValue || '';
-        return acc;
-    }, {} as { [key: string]: string });
-    
-    const [fieldValues, setFieldValues] = useState<{ [key: string]: string }>(initialState2);
+    // const [fieldValues, setFieldValues] = useState<{ [key: string]: string }>(initialState2);
 
-    const handleChange = (key: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFieldValues({
-            ...fieldValues,
-            [key]: event.target.value,
-        });
-    };
+    // const handleChange = (key: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setFieldValues({
+    //         ...fieldValues,
+    //         [key]: event.target.value,
+    //     });
+    // };
 
 
     const { pdfFound } = useSelector((state: RootState) => state.editor);
     const [responseMessage, setResponseMessage] = useState<string>('');
     const handleOnSubmit = async () => {
-        console.log(fieldValues);
+        // console.log(fieldValues);
         try {
-            const response = await sendFormValues(fieldValues);
+            // const response = await sendFormValues(fieldValues);
+            const response: any ={};
             setResponseMessage(response);
             // console.log(formValues);
             console.log(responseMessage);
@@ -131,7 +122,8 @@ function ValidateFields() {
             }
 
           } catch (error) {
-            console.log(fieldValues);
+            // console.log(fieldValues);r
+
             console.log("failed");
             console.error('Failed to send form values:', error);
           }
@@ -144,15 +136,16 @@ function ValidateFields() {
         <div>
             <Stack spacing={2} sx={{marginTop: 3 , alignItems: "center", }}>
 
-            <Box sx={{ marginTop: 3, fontWeight: "bold", fontSize: "32px" }}>{templateObj.title}</Box>
+            <Box sx={{ marginTop: 3, fontWeight: "bold", fontSize: "32px" }}>{template.title}</Box>
             <Box sx={{ marginTop: 3, fontSize: "20px" }}>Please fill the values below</Box>
 
             {
-                templateObj.fields.map((field: any) => (
+                template.fields.map((field: any) => (
                     
                 <Stack key={field.fieldName} sx={{  alignItems: "center",  }} spacing={2} direction={"row"}>
                 <Box>{field.fieldName}</Box>
-                <TextField value={fieldValues[field.fieldName]} onChange={handleChange(field.fieldName)} variant="standard" />
+                <Box>{field.fieldValue}</Box>
+                {/* <TextField value={fieldValues[field.fieldName]} onChange={handleChange(field.fieldName)} variant="standard" /> */}
             </Stack>
                 ))
             }

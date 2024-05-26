@@ -5,7 +5,10 @@ export const editorSlice = createSlice({
     initialState: {
         templateFound: false,
         pdfFound: false,
-        template: ""
+        template: {
+            fields: [],
+            title: ""
+        }
     },
     reducers: {
         setTemplateFound: (state, action) => {
