@@ -1,10 +1,6 @@
-import { useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import DynamicForm from './DyanamicForms'
-import { Button } from '@mui/material'
 import Editor from './pages/editor/Editor'
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import ViewerPage from './pages/editor/components/Viewer'
 
 
 
@@ -17,8 +13,6 @@ function App() {
       <Route>
         <Route path="" element={<Editor/>} />
         <Route path="/editor" element={<Editor/>} />
-        <Route path="/viewer" element={<ViewerPage/>} />
-        <Route path="/pdf.worker.js" element={<ViewerPage/>} />
       </Route>
     </Routes>
     </BrowserRouter>
