@@ -23,6 +23,7 @@ function SearchTemplates() {
         console.log(templateFound);
         try {
             const response = await sendFreeText("freeText", freeText);
+            // const response = "res";r
             console.log(typeof response);
             console.log("typeof")
             dispatch(setTemplate(response));
@@ -44,13 +45,18 @@ function SearchTemplates() {
             <Stack spacing={2} sx={{marginTop: 3 , alignItems: "center", }}>
             <Box sx={{ marginTop: 3, fontWeight: "bold", fontSize: "32px" }}>Welcome To Any PDF</Box>
 
-                
-            <TextField 
-                label="Explain the document you want to make here."
-                variant="standard"
-                value={freeText}
-                onChange={(event) => setFreeText(event.target.value)}
-                />
+                <Box width="50%">
+
+                    <TextField 
+                        label="Explain the document you want to make here."
+                        variant="standard"
+                        value={freeText}
+                        onChange={(event) => setFreeText(event.target.value)}
+                        fullWidth
+                        />
+
+                </Box>
+                <Box width="50%">
 
                 <Select
                     labelId="demo-simple-select-label"
@@ -58,11 +64,13 @@ function SearchTemplates() {
                     value={templateType}
                     label="templateChoose"
                     onChange={handleChange}
-                >
+                    fullWidth
+                    >
                     {TEMPLATE_NAMES.map((name) => (
-                    <MenuItem value={name}>{name}</MenuItem>
-                ))}
+                        <MenuItem value={name}>{name}</MenuItem>
+                    ))}
                 </Select>
+                    </Box>
                 
                 {/* <GridLoader color="#36d7b7" /> */}
                 <Button variant="contained" onClick={onSubmitHandler}>Search Templates</Button>

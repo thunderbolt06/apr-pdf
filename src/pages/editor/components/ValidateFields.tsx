@@ -8,11 +8,10 @@ import { setPdfFound, setPdfPath } from "../editorSlice";
 import { saveAs } from 'file-saver';
 import { GridLoader } from "react-spinners";
 
-
 function ValidateFields() {
 
     const dispatch = useDispatch();
-    const {  template } = useSelector((state: RootState) => state.editor);
+    const { template } = useSelector((state: RootState) => state.editor);
 
 
 
@@ -67,7 +66,6 @@ function ValidateFields() {
             setIsLoading(false);
 
             saveAs(response, 'downloaded.pdf');
-            // navigate("/viewer");
 
           } catch (error) {
             console.log("failed");
