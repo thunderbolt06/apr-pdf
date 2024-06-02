@@ -3,105 +3,29 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { setPdfFound, setTemplate, setPdfPath } from "../editorSlice";
-import { useNavigate } from "react-router-dom";
 import { sendFormValues } from '../../../services/Service';
 
 import { saveAs } from 'file-saver';
 import { GridLoader } from "react-spinners";
 
-let template2 = {
-    "description": "Example of a billing invoice used in an ecommerce store.",
-    "fields": [
-      {
-        "fieldName": "company",
-        "fieldType": "string",
-        "fieldValue": "Winner360"
-      },
-      {
-        "fieldName": "email",
-        "fieldType": "string",
-        "fieldValue": "contactus@winner360.com"
-      },
-      {
-        "fieldName": "project",
-        "fieldType": "string",
-        "fieldValue": "Donkey Excavators"
-      },
-      {
-        "fieldName": "client",
-        "fieldType": "string",
-        "fieldValue": "CodeWithCodium"
-      }
-    ],
-    "inputs": [
-      "company",
-      "email",
-      "project",
-      "client",
-      "address line 1",
-      "state and pincode"
-    ],
-    "pathToCode": "/home/cheese-cracker/2024/APR_Hackathon/sample_invoices/sample_invoice1.html",
-    "title": "Sample Invoice"
-  }
-
-
-const res: {
-    Title: string;
-    templateType: string;
-    fields: {
-        fieldName: string;
-        fieldType: string;
-        suggestedValue?: string;
-    }[];
-} = {
-    Title: "Generating a Rent Agreement",
-    templateType: "rent123",
-    fields: [
-        {
-            fieldName: "OwnerName",
-            fieldType: "String",
-            suggestedValue: "Ramesh"
-        },
-        {
-            fieldName: "TenantName",
-            fieldType: "String",
-            suggestedValue: "Chinmay"
-        }
-    ]
-};
 
 function ValidateFields() {
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { templateFound, template } = useSelector((state: RootState) => state.editor);
-
-
+    const { template } = useSelector((state: RootState) => state.editor);
 
     const [fieldValues, setFieldValues] = useState<any>({});
-    const { pdfFound } = useSelector((state: RootState) => state.editor);
     const [responseMessage, setResponseMessage] = useState<string>('');
     
 
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
-        console.log(template);
-        console.log("use effect called");
-        if (template) {
-            const updatedFieldValues: any = {};
-            template.fields.forEach((field: any) => {
-                updatedFieldValues[field.fieldName] = field.fieldValue;
-            });
-            setFieldValues(updatedFieldValues);
-            console.log(fieldValues);
-            console.log(updatedFieldValues);
-        }
+        const updatedFieldValues: any = {};
+        template.fields.forEach((field: any) => {
+            updatedFieldValues[field.fieldName] = field.fieldValue;
+        });
+        setFieldValues(updatedFieldValues);
     }, [template]);
-    // const handleFieldChange = (event: { target: { name: SetStateAction<string>; value: SetStateAction<string>; }; }) => {
-    //     const { name, value } = event.target;
-    //     setFieldValues({ ...fieldValues, [name]: value });
-    // }
 
     
     
@@ -142,7 +66,6 @@ function ValidateFields() {
     function handleChange(e:any, name:any  ): any {
         setFieldValues({ ...fieldValues, [name]: e.target.value });
         console.log(fieldValues);
-
     }
 
     return (
@@ -157,7 +80,11 @@ function ValidateFields() {
                 <Stack key={field.fieldName} sx={{ alignItems: "end"  }} spacing={2} direction={"row"}>
                 <Box sx={{width: "200px" , textAlign:"center"}}>{field.fieldName} : </Box>
                 {/* <Box>{field.fieldValue}</Box> */}
-                <TextField value={fieldValues[field.FieldName]} onChange={(e) => handleChange(e, field.fieldName)} variant="standard" />
+                <TextField 
+                value={fieldValues[field.fieldName]} 
+                onChange={(e) => handleChange(e, field.fieldName)}
+                placeholder={fieldValues[field.fieldName]} 
+                variant="standard" />
             </Stack>
                 ))
             }
