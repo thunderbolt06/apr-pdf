@@ -1,8 +1,8 @@
-import { Box, Button, Container, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { setPdfFound, setTemplate, setPdfPath } from "../editorSlice";
+import { setPdfFound, setPdfPath } from "../editorSlice";
 import { sendFormValues } from '../../../services/Service';
 
 import { saveAs } from 'file-saver';
@@ -83,7 +83,7 @@ function ValidateFields() {
                 <TextField 
                 value={fieldValues[field.fieldName]} 
                 onChange={(e) => handleChange(e, field.fieldName)}
-                placeholder={fieldValues[field.fieldName]} 
+                // placeholder={fieldValues[field.fieldName]} 
                 variant="standard" />
             </Stack>
                 ))

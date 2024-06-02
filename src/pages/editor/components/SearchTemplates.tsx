@@ -17,7 +17,7 @@ function SearchTemplates() {
     const [freeText, setFreeText] = useState("");
     const [templateType, setTemplateType] = useState("freeText");
     const [isLoading, setIsLoading] = useState(false);
-
+    const selectTemplate = false;
     const onSubmitHandler = async () => {
         console.log(freeText);
         console.log(templateType);
@@ -46,7 +46,7 @@ function SearchTemplates() {
         setTemplateType(event.target.value);
     };
 
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
             // Run your function here
             event.preventDefault();
@@ -54,14 +54,14 @@ function SearchTemplates() {
             onSubmitHandler();
         }
     };
-
+    const isMobile = window.innerWidth < 600;
     return (
         <div>
             <form onSubmit={onSubmitHandler}>
             <Stack spacing={2} sx={{marginTop: 3 , alignItems: "center", }}>
             <Box sx={{ marginTop: 3, fontWeight: "bold", fontSize: "32px" }}>Welcome To Any PDF</Box>
 
-                <Box width="50%">
+                <Box width= {isMobile ? "100%" : "50%"}>
 
                     <TextField 
                         label="Explain the document you want to make here."
@@ -74,21 +74,22 @@ function SearchTemplates() {
                         />
 
                 </Box>
-                <Box width="50%">
-
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={templateType}
-                    label="templateChoose"
-                    onChange={handleChange}
-                    fullWidth
-                    >
-                    {TEMPLATE_NAMES.map((name) => (
-                        <MenuItem sx={{color:"#000000"}} value={name}>{name}</MenuItem>
-                    ))}
-                </Select>
+                { selectTemplate &&
+                <Box width="50%" >
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={templateType}
+                        label="templateChoose"
+                        onChange={handleChange}
+                        fullWidth
+                        >
+                        {TEMPLATE_NAMES.map((name) => (
+                            <MenuItem sx={{color:"#000000"}} value={name}>{name}</MenuItem>
+                        ))}
+                    </Select>
                     </Box>
+                }
                 {/* <GridLoader color="#36d7b7" /> */}
                 <Button variant="contained" onClick={onSubmitHandler} sx={{color:"#000000"}}>Search Templates</Button>
 
