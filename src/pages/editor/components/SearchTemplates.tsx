@@ -39,6 +39,15 @@ function SearchTemplates() {
     const handleChange = (event: { target: { value: SetStateAction<string>; }; }) => {
         setTemplateType(event.target.value);
     };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            // Run your function here
+            console.log('Enter key pressed');
+            onSubmitHandler();
+        }
+    };
+
     return (
         <div>
             <form onSubmit={onSubmitHandler}>
@@ -54,6 +63,7 @@ function SearchTemplates() {
                         onChange={(event) => setFreeText(event.target.value)}
                         multiline
                         fullWidth
+                        onKeyDown={handleKeyDown}
                         />
 
                 </Box>
@@ -72,7 +82,6 @@ function SearchTemplates() {
                     ))}
                 </Select>
                     </Box>
-                
                 {/* <GridLoader color="#36d7b7" /> */}
                 <Button variant="contained" onClick={onSubmitHandler} sx={{color:"#000000"}}>Search Templates</Button>
 

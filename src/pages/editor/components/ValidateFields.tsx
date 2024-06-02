@@ -154,14 +154,14 @@ function ValidateFields() {
 
             {
                 template.fields.map((field: any) => (
-                <Stack key={field.fieldName} sx={{  alignItems: "left"  }} spacing={2} direction={"row"}>
-                <Box>{field.fieldName}</Box>
+                <Stack key={field.fieldName} sx={{ alignItems: "end"  }} spacing={2} direction={"row"}>
+                <Box sx={{width: "200px" , textAlign:"center"}}>{field.fieldName} : </Box>
                 {/* <Box>{field.fieldValue}</Box> */}
                 <TextField value={fieldValues[field.FieldName]} onChange={(e) => handleChange(e, field.fieldName)} variant="standard" />
             </Stack>
                 ))
             }
-
+            <br></br>
             <Button variant="contained" onClick={handleOnSubmit} sx={{color:"#000000"}}>Generate PDF</Button>
             {/* { pdfFound && <a href={responseMessage}>Download PDF</a> } */}
 
