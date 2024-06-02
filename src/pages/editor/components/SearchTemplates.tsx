@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { sendFreeText } from "../../../services/Service";
 import { RootState } from "../../../store";
 import { setTemplate, setTemplateFound } from "../editorSlice";
-
+import { GridLoader } from "react-spinners";
 
 let TEMPLATE_NAMES = ["COVID", "Airline bill", "Rent Agreement", "Or choose a template"];
 
@@ -16,14 +16,17 @@ function SearchTemplates() {
 
     const [freeText, setFreeText] = useState("");
     const [templateType, setTemplateType] = useState("freeText");
+    const [isLoading, setIsLoading] = useState(false);
 
     const onSubmitHandler = async () => {
         console.log(freeText);
         console.log(templateType);
         console.log(templateFound);
+        setIsLoading(true);
         try {
             const response = await sendFreeText("freeText", freeText);
             // const response = "res";r
+            
             console.log(typeof response);
             console.log("typeof")
             dispatch(setTemplate(response));
@@ -33,6 +36,9 @@ function SearchTemplates() {
           } catch (error) {
             console.log("failed");
             console.error('Failed to send form values:', error);
+          }
+          finally{
+            setIsLoading(false);
           }
     }
 
@@ -86,6 +92,8 @@ function SearchTemplates() {
                 <Button variant="contained" onClick={onSubmitHandler} sx={{color:"#000000"}}>Search Templates</Button>
 
             </Stack>
+            <br></br>
+            { isLoading && <GridLoader color="#36d7b7" /> }
                 </form>
         </div>
     )
