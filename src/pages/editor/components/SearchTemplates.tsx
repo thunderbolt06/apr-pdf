@@ -52,6 +52,7 @@ function SearchTemplates() {
                         variant="standard"
                         value={freeText}
                         onChange={(event) => setFreeText(event.target.value)}
+                        multiline
                         fullWidth
                         />
 
@@ -67,13 +68,13 @@ function SearchTemplates() {
                     fullWidth
                     >
                     {TEMPLATE_NAMES.map((name) => (
-                        <MenuItem value={name}>{name}</MenuItem>
+                        <MenuItem sx={{color:"#000000"}} value={name}>{name}</MenuItem>
                     ))}
                 </Select>
                     </Box>
                 
                 {/* <GridLoader color="#36d7b7" /> */}
-                <Button variant="contained" onClick={onSubmitHandler}>Search Templates</Button>
+                <Button variant="contained" onClick={onSubmitHandler} sx={{color:"#000000"}}>Search Templates</Button>
 
             </Stack>
                 </form>

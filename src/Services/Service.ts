@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 // Define the base URL for your API
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = 'https://relative-yak-internal.ngrok-free.app/';
 
 
 // Function to send a string to the backend
