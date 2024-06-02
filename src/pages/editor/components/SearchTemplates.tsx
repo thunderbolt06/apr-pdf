@@ -49,6 +49,7 @@ function SearchTemplates() {
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             // Run your function here
+            event.preventDefault();
             console.log('Enter key pressed');
             onSubmitHandler();
         }
