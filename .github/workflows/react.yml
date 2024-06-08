@@ -36,4 +36,4 @@ jobs:
         with:
           node-version: '20.x'
       - run: npm install
-      - run: npm run dev
+      - run: nohup npm run dev &
