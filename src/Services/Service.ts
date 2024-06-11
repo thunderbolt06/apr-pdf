@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 // Define the base URL for your API
-const BASE_URL = 'http://autopdf.core.rahiljain.in/';
+const BASE_URL = 'http://18.221.112.14/api';
 
 
 // Function to send a string to the backend

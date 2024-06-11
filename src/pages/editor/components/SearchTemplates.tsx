@@ -1,4 +1,4 @@
-import { Box, Button, MenuItem, Select, Stack, TextField } from "@mui/material";
+import { Box, Button, MenuItem, Modal, Select, Stack, TextField, Typography } from "@mui/material";
 import { SetStateAction, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendFreeText } from "../../../services/Service";
@@ -17,6 +17,8 @@ function SearchTemplates() {
     const [freeText, setFreeText] = useState("");
     const [templateType, setTemplateType] = useState("freeText");
     const [isLoading, setIsLoading] = useState(false);
+    const [templateFailed, setTemplateFailed] = useState(false);
+
     const selectTemplate = false;
     const onSubmitHandler = async () => {
         console.log(freeText);
@@ -29,10 +31,14 @@ function SearchTemplates() {
             
             console.log(typeof response);
             console.log("typeof")
-            dispatch(setTemplate(response));
-            dispatch(setTemplateFound(true));
-
-
+            if (response && response.hasOwnProperty("error")) {
+                console.log("template not found");
+                setTemplateFailed(true);
+            }
+            else {
+                dispatch(setTemplate(response));
+                dispatch(setTemplateFound(true));
+            }
           } catch (error) {
             console.log("failed");
             console.error('Failed to send form values:', error);
@@ -97,6 +103,29 @@ function SearchTemplates() {
             <br></br>
             { isLoading && <GridLoader color="#36d7b7" /> }
                 </form>
+
+            {/* add modal if template not found */}
+                <Modal open={templateFailed} onClose={() => {setTemplateFailed(false)}}>
+                    <Box sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: isMobile ? '90%' : 400,
+                        bgcolor: 'background.paper',
+                        border: '2px solid #000',
+                        boxShadow: 24,
+                        p: 4,
+                    }}>
+                        <Typography variant="h6" component="h2">
+                            Template not found
+                        </Typography>
+                        <Typography sx={{ mt: 2 }}>
+                            We are sorry, but we could not find a template that matches the description you provided. 
+                            Please try again or select a template from the dropdown menu.
+                        </Typography>
+                    </Box>
+                </Modal >
         </div>
     )
 }
